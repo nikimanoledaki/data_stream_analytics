@@ -1,24 +1,36 @@
-# README
+# Simple Data Stream Analytics
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Design
 
-Things you may want to cover:
+The first step was to set up a Docker container with a Rails application, a Postgres Database, and a Kafka consumer group through Racecar. Racecar is a high-level library that uses Ruby-Kafka to integrate Kafka and Rails easily and quickly.
 
-* Ruby version
+## Set up the application
 
-* System dependencies
+1. Setup the container locally
 
-* Configuration
+```
+$ docker-compose run --rm web rails new . --force --no-deps --database=postgresql
 
-* Database creation
+# $ docker-compose run --rm -u root web bash -c "mkdir -p /bundle/vendor && chown railsuser /bundle/vendor"
 
-* Database initialization
+$ docker-compose run --rm web bundle install
+$ docker-compose run --rm web bundle exec rake db:setup
+```
 
-* How to run the test suite
+2. Run the server
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+$ docker-compose up web
+```
 
-* Deployment instructions
+Then, open your browser and visit [localhost:3000](http://localhost:3000).
 
-* ...
+## Run the application
+
+## Run the tests
+
+Run the tests from the root of the directory with Rspec:
+
+```
+bundle exec rspec
+```
