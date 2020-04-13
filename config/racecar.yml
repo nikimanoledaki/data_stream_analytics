@@ -5,16 +5,15 @@ common: &common
 development:
   <<: *common
   brokers:
-    - localhost:9092
+    - 192.168.0.22:9092
 
 test:
   <<: *common
   brokers:
-    - localhost:9092
+    - 192.168.0.22:9092
 
 production:
   <<: *common
   brokers:
-    - kafka1.myapp.com:9092
-    - kafka2.myapp.com:9092
-    - kafka3.myapp.com:9092
+    - 192.168.0.22:9092
+
