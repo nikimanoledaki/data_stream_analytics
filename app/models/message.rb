@@ -4,6 +4,7 @@ class Message
     def initialize(value)
         @value = value
         @time = validate_time
+        @node_id = validate_node_id
     end
 
     def validate_time
@@ -13,6 +14,10 @@ class Message
 
     def minute
         @time.strftime('%M').to_i
+    end
+
+    def validate_node_id
+        @value["node_id"].to_i
     end
 
 end

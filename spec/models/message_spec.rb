@@ -16,4 +16,11 @@ RSpec.describe Message, type: :model do
             expect(subject.minute).to eq 0
         end
     end
+
+    describe '#validate_node_id' do
+        it 'returns the node_id as an Integer' do
+            subject = Message.new({"node_id"=>"18446744073709551615", "timestamp"=>"2020-01-03T01:19:13 -00:00", "value"=>1})
+            expect(subject.validate_node_id).to be_a(Integer)
+        end
+    end
 end
