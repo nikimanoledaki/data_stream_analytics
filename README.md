@@ -7,18 +7,10 @@
 1. Setup the container locally
 
 ```
-$ docker run --name bb niki2401/data_stream_analytics:latest
+$ docker pull niki2401/data_stream_analytics:latest
 $ docker-compose run --rm web bundle install
 $ docker-compose run --rm web bundle exec rake db:create db:migrate
 ```
-
-## Run the Rails server
-
-```
-$ docker-compose up web
-```
-
-Then, open your browser and visit [localhost:3000](http://localhost:3000).
 
 ## Run the Kafka Consumer
    
