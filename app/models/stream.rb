@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require './app/models/batch.rb'
 
 class Stream
   attr_reader :current_batch, :last_message
@@ -9,9 +10,9 @@ class Stream
   end
 
   def checkpoint(new_message)
-    if @last_message.nil? ||  (@last_message.minute == new_message.minute)
-      @last_message = new_message
-      current_batch(new_message)
+    if @last_message.nil? || (@last_message.minute == new_message.minute)
+        @last_message = new_message
+        current_batch(new_message)
     end
   end
 

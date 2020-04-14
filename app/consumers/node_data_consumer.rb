@@ -12,7 +12,12 @@ class NodeDataConsumer < Racecar::Consumer
   end
 
   def process(message, new_message = Message)
-    data = JSON.parse(message)
+    begin
+      data = JSON.parse(message)
+    rescue JSON::ParserError
+      data = message
+    end
+    
     @stream.checkpoint(new_message.new(data['value']))
   end
 end
