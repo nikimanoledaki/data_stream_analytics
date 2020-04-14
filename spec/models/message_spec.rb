@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require './lib/message.rb'
 
-RSpec.describe Message, type: :model do
-  describe '#validate_timestamp' do
+RSpec.describe Message do
+  describe '#validate_time' do
     it 'returns the timestamp as a Time object' do
       message = { 'node_id' => 18_446_744_073_709_551_615, 'timestamp' => '2020-01-03T01:19:13 -00:00', 'value' => 1 }
       subject = Message.new(message)
@@ -19,10 +20,10 @@ RSpec.describe Message, type: :model do
     end
   end
 
-  describe '#validate_node_id' do
+  describe '#node_id' do
     it 'returns the node_id as an Integer' do
       subject = Message.new({ 'node_id' => '18446744073709551615', 'timestamp' => '2020-01-03T01:19:13 -00:00', 'value' => 1 })
-      expect(subject.validate_node_id).to be_a(Integer)
+      expect(subject.node_id).to be_a(Integer)
     end
   end
 end

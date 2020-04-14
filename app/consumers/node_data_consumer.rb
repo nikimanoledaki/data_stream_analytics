@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require './app/models/message.rb'
-require './app/models/stream.rb'
+require './lib/message.rb'
+require './lib/stream.rb'
 
 class NodeDataConsumer < Racecar::Consumer
   subscribes_to 'node-data', start_from_beginning: false

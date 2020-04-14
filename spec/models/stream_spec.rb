@@ -9,17 +9,16 @@ RSpec.describe Stream, type: :model do
       batch = double('batch', process: [message])
       batch_type = double('batch_type', new: batch)
       subject = Stream.new(batch_type)
-      expect(subject.checkpoint(message)).to eq 0
+      expect(subject.checkpoint(message)).to eq([message])
     end
 
-    it 'processes new batch after one minute' do
+    it 'processes new batch when minute passes' do
       message1 = double('message1', minute: 1)
       message2 = double('message2', minute: 2)
-      batch = double('batch', process: [message1])
+      batch = double('batch', process: [message2])
       batch_type = double('batch_type', new: batch)
       subject = Stream.new(batch_type)
-      subject.checkpoint(message1)
-      expect(subject.checkpoint(message2)).to eq 2
+      expect(subject.checkpoint(message2)).to eq([message2])
     end
   end
 end
