@@ -10,11 +10,11 @@ class Message
   end
 
   def validate_time
-    @time = Time.new(@value['timestamp'])
+    @time = Time.zone.local(@value['timestamp'])
   end
 
   def minute
-    # change this to be the date and time up until the minute
+    #  change this to be the date and time up until the minute
     @time.strftime('%M').to_i
   end
 

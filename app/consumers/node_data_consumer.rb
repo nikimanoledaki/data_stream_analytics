@@ -17,7 +17,7 @@ class NodeDataConsumer < Racecar::Consumer
     rescue JSON::ParserError
       data = message
     end
-    
+
     @stream.checkpoint(new_message.new(data['value']))
   end
 end
