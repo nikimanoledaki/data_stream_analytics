@@ -99,8 +99,7 @@ From inside the root of the data_stream_analytics directory, launch the Kafka Co
 docker-compose run web bundle exec racecar NodeDataConsumer
 ```
 
-However, at this point, it should be noted, for the application to run properly, the service also assumes that there is a Producer enqueuing messages on the other end of this queue. This could be achieved with a gem such as DeliveryBoy, which is also based on Ruby-Kafka, and allows for the creation of a Producer class.
-
+It should be noted that, for the application to run properly with a Kafka queue, the service assumes that there is a Producer enqueuing messages on the other end of this queue. This could be achieved in a short amount of time with a gem such as DeliveryBoy, which is also based on Ruby-Kafka, and allows for the creation of a Producer class.
 
 ## Testing
 
@@ -119,7 +118,7 @@ Unit tests are in /spec/lib and /spec/consumers. Most tests in these files are i
 ### Feature tests
 
 For end-to-end feature testing, there are tests in /spec/features, and classes there are not mocked. These tests account for various different use case where the service can process: 
-- Messages from the same node within the same minute (without duplicates).
+- Messages from the same node within the same minute (without duplicating the node_id).
 - Messages from the same node at different minutes.
 - Messgess from two different nodes within the same minute (without duplicates).
 
@@ -150,13 +149,17 @@ Furthermore, a decision made to improve the runtime of this service is that the 
 
 ![Statistics Table](./app/assets/images/Statistics.png)
 
-The `Statistics` table shown above indicates that the `Batch` object has successfully calculated the `minimum_value`, `maximum_value`, and a rolling `average_value` for every `Node` in the same minute, as per the requirements. With more time, this service could be improved to only send one `Statistic` object per `Node`. The `Batch` class could definitely be refactored with more time to respect the Single-Responsibility Principle.
+The `Statistics` table shown above indicates that the `Batch` object has successfully calculated the `minimum_value`, `maximum_value`, and a rolling `average_value` for two `Nodes` (statistic_id 4 and 5) in the same minute, the same `Node` (node_id: 1) in the next minute (statistic_id: 6), and a new `Node` (node_id: 2) in another minute (statistic_id: 7), as per the requirements. In addition, the `Batch` class could definitely be refactored with more time to respect the Single-Responsibility Principle.
 
 ### Edge Cases
 
+**Duplicate data**
+
+The `Batch` object ensures that `Nodes` are not duplicated in the database. With more time, this service could also be improved to only send only the final `Statistic` object per `Node` per minute and cut down on the amount of querying to the database for optimisation. 
+
 **Missing data**
 
-The database would record the node_id, value, and all statistics as `nil` if these fields empty, but it will add `Time` to the `timestamp`. If these fields are empty, it will likely create duplicates.
+The database would record the node_id, value, and all statistics as `nil` if these fields empty, but it will contain a `timestamp`. If these fields are empty, it will likely create duplicates.
 
 **Data format**
 
