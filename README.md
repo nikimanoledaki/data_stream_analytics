@@ -123,7 +123,8 @@ For end-to-end feature testing, there are tests in /spec/features, and classes t
 - Messages from the same node at different minutes.
 - Messgess from two different nodes within the same minute (without duplicates).
 
-### Rails console
+**Rails console**
+
 The feature tests can be replicated in the Rails console as documented earlier.
 
 ## Process
@@ -147,7 +148,7 @@ The `Batch` object, also in /lib, does a lot of the processing and heavy-lifting
 
 Furthermore, a decision made to improve the runtime of this service is that the calculations are done immediately, for example by comparing the new `maximum_value` or `minimum_value` with the current one and replacing it necessary. 
 
-![Statistics Table](/app/assets/images/statistics.png)
+![Statistics Table](./app/assets/images/Statistics.png)
 
 The `Statistics` table shown above indicates that the `Batch` object has successfully calculated the `minimum_value`, `maximum_value`, and a rolling `average_value` for every `Node` in the same minute, as per the requirements. With more time, this service could be improved to only send one `Statistic` object per `Node`. The `Batch` class could definitely be refactored with more time to respect the Single-Responsibility Principle.
 
