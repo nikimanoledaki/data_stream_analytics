@@ -29,7 +29,7 @@ A simple data stream analytics microservice built with Rails and a Kafka Consume
 
 **Kafka**
 
-Kafka was chosen as a technology because it provides a reliable way to scale a service if it must consume large numbers of incoming data. It guarantee some reliability by enqueuing and dequeueing the data.
+Kafka was chosen as a technology because it provides a reliable way to scale a service if it must consume large numbers of incoming data. It guarantees some reliability by enqueuing and dequeueing the data.
 
 **Rails** 
 
@@ -94,12 +94,12 @@ cd kafka_2.12-2.4.1
 ./bin/kafka-server-start.sh config/server.properties
 ```
 
-From inside the root of the data_stream_analytics directory, laungh the Kafka Consumer:
+From inside the root of the data_stream_analytics directory, launch the Kafka Consumer:
 ```
 docker-compose run web bundle exec racecar NodeDataConsumer
 ```
 
-However, at this point, it should be noted , for the application to run properly, the service also assumes that there is a Producer enqueuing messages on the other end of this queue. This could be achieved with a gem such as DeliveryBoy, which is also based on Ruby-Kafka, and allows for the creation of a Producer class.
+However, at this point, it should be noted, for the application to run properly, the service also assumes that there is a Producer enqueuing messages on the other end of this queue. This could be achieved with a gem such as DeliveryBoy, which is also based on Ruby-Kafka, and allows for the creation of a Producer class.
 
 
 ## Testing
