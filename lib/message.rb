@@ -6,7 +6,7 @@ class Message
       validate_time
   end
 
-  def validate_time        
+  def validate_time
       @time = Time.new(@data["timestamp"])
   end
 

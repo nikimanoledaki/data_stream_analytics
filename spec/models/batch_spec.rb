@@ -12,4 +12,11 @@ RSpec.describe Batch do
             expect(subject.process(message3)).to be_a(Statistic)
         end
     end
+
+    describe '#update_statistics' do
+        it 'creates a new statistic instance in database' do
+            message = double("message", "node_id" => 9223372036854775807, "value" => 1 )
+            expect(subject.process(message)).to be_a(Statistic)
+        end
+    end
 end

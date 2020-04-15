@@ -5,15 +5,15 @@ common: &common
 development:
   <<: *common
   brokers:
-    - 192.168.0.22:9092
+    - localhost:9092
 
 test:
   <<: *common
   brokers:
-    - 192.168.0.22:9092
+    - localhost:9092
 
 production:
   <<: *common
   brokers:
-    - 192.168.0.22:9092
+    - localhost:9092
 

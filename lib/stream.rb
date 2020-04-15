@@ -21,6 +21,11 @@ class Stream
     @current_batch.process(new_message)
   end
 
+  def new_minute
+    @current_batch.update_statistics
+    new_batch
+  end
+
   def same_minute?(new_message)
     @last_message.nil? || (@minute == new_message.minute)
   end
