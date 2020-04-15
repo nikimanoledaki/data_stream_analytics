@@ -50,7 +50,7 @@ docker-compose run web bundle exec rake db:create db:migrate
 
 ### Running the application
 
-At this moment the application can listen for a local Zookeeper/Kafka queue on port `9092`. Adding a Zookeeper/Kafka service to this Docker was fine, but there was a network error because the Consumer was refused access to port `9092`. This could be resolved with additional time.
+At this moment the application can listen for a local Zookeeper/Kafka queue on port `9092`. Adding a Zookeeper/Kafka service to this Docker was fine, but there was a network error because the Consumer was refused access to port `9092` within the container, which is why it was difficult to justify adding it to this container in this solution. This could be resolved with some additional time. In the meantime, there are two possible options to run this service.
 
 **Option 1: Rails console**
 
@@ -163,4 +163,4 @@ The database would record the node_id, value, and all statistics as `nil` if the
 
 **Data format**
 
-One assumption is that the data received is either a JSON object or a Hash with the keys `node_id`, `value`, `timestamp`, as per the user requirements. However, the service does not account for data in XML format, but this could definitely be added with more time.
+One assumption is that the data received is either a JSON object or a Hash. It must contain the keys `node_id`, `value`, `timestamp`, an assumption that is specified in the user requirements. The service does not account for data that are in XML format, for example, but this could definitely be added with more time.
