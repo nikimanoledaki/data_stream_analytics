@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_105445) do
+ActiveRecord::Schema.define(version: 2020_04_15_105742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_04_15_105445) do
     t.bigint "node_id"
     t.integer "minimum_value"
     t.integer "maximum_value"
-    t.integer "average_value"
+    t.float "average_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["node_id"], name: "index_statistics_on_node_id"
