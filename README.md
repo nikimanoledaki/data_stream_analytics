@@ -146,7 +146,7 @@ The `Stream` class, which is also located in /lib, creates one-minute long batch
 **Batch**
 The `Batch` object, also in /lib, does a lot of the processing and heavy-lifting - it validates the `Node` with a `find_by` query to look up the node_id in the database, and if it does not, it creates a new `Node` object. While this may decrease the speed of the application, it minimizes the chances of duplicating records for the same node_id.
 
-Furthermore, a decision made to improve the runtime of this service is that the calculations are done immediately, for example by comparing the new `maximum_value` or `minimum_value` with the current one and replacing it necessary. 
+Furthermore, a decision made to improve the runtime of this service is that the calculations are done immediately, for example by comparing the new `maximum_value` or `minimum_value` with the current one and replacing it if necessary. 
 
 ![Statistics Table](./app/assets/images/Statistics.png)
 
