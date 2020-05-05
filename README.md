@@ -9,7 +9,6 @@
   * [Testing](#testing)
     * [Unit Tests](#unit-tests)
     * [Feature Tests](#feature-tests)
-  * [Process](#process)
   * [Design](#design)
     * [Objects](#objects)
     * [Edge Cases](#edge-cases)
@@ -125,9 +124,6 @@ For end-to-end feature testing, there are tests in /spec/features, and classes t
 **Rails console**
 
 The feature tests can be replicated in the Rails console as documented earlier.
-
-## Process
-I spent one day researching how to run a Rails application with a Postgres database in a Docker container, two days researching how to integrate Zookeeper/Kafka with Rails, one day assembling these technologies with Racecar in this repository, and finally 2 days writing the code. 
 
 ## Design
 
