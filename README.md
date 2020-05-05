@@ -50,7 +50,7 @@ docker-compose run web bundle exec rake db:create db:migrate
 
 ### Running the application
 
-At this moment the application can listen for a local Zookeeper/Kafka queue on port `9092`. Adding a Zookeeper/Kafka service to this Docker was fine, but there was a network error because the Consumer was refused access to port `9092` within the container, which is why it was difficult to justify adding it to this container in this solution. This could be resolved with some additional time. In the meantime, there are two possible options to run this service.
+At this moment the application can listen for a local Zookeeper/Kafka queue on port `9092`. Adding a Zookeeper/Kafka service to this Docker was fine, but there was a network error because the Consumer was refused access to port `9092` within the container, which is why it was difficult to justify adding it to this container in this solution. In the meantime, there are two possible options to run this service.
 
 **Option 1: Rails console**
 
@@ -58,7 +58,7 @@ As an alternative to this, running the application's features can be tested thro
 
 Start the Rails console:
 ```
-docker-compose run --rm web rails console
+docker-compose run web rails console
 
 # require files 
 require './app/consumers/node_data_consumer.rb'
@@ -85,13 +85,13 @@ This requires the following (versioning may vary but these ones work):
 The steps to follow:
 ```
 cd kafka_2.12-2.4.1
-.bin/zookeeper-server-start.sh config/zookeeper.properties
+bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
 
 In a new terminal:
 ```
 cd kafka_2.12-2.4.1
-./bin/kafka-server-start.sh config/server.properties
+bin/kafka-server-start.sh config/server.properties
 ```
 
 From inside the root of the data_stream_analytics directory, launch the Kafka Consumer:
@@ -113,7 +113,7 @@ The current code coverage is 97.25% according to SimpleCov.
 
 ### Unit tests 
 
-Unit tests are in /spec/lib and /spec/consumers. Most tests in these files are isolated from other classes with the use of doubles to ensure that they are decoupled. Some tests in the `Batch` class could be decoupled further with more time.
+Unit tests are in /spec/lib and /spec/consumers. Most tests in these files are isolated from other classes with the use of doubles to ensure that they are decoupled. 
 
 ### Feature tests
 
@@ -149,18 +149,18 @@ Furthermore, a decision made to improve the runtime of this service is that the 
 
 ![Statistics Table](./app/assets/images/Statistics.png)
 
-The `Statistics` table shown above indicates that the `Batch` object has successfully calculated the `minimum_value`, `maximum_value`, and a rolling `average_value` for two `Nodes` (statistic_id 4 and 5) in the same minute, the same `Node` (node_id: 1) in the next minute (statistic_id: 6), and a new `Node` (node_id: 2) in another minute (statistic_id: 7), as per the requirements. In addition, the `Batch` class could definitely be refactored with more time to respect the Single-Responsibility Principle.
+The `Statistics` table shown above indicates that the `Batch` object has successfully calculated the `minimum_value`, `maximum_value`, and a rolling `average_value` for two `Nodes` (statistic_id 4 and 5) in the same minute, the same `Node` (node_id: 1) in the next minute (statistic_id: 6), and a new `Node` (node_id: 2) in another minute (statistic_id: 7). 
 
 ### Edge Cases
 
 **Duplicate data**
 
-The `Batch` object ensures that `Nodes` are not duplicated in the database. With more time, this service could also be improved to only send only the final `Statistic` object per `Node` per minute and cut down on the amount of querying to the database for optimisation. 
+The `Batch` object ensures that `Nodes` are not duplicated in the database. This service could also be improved to only send the final `Statistic` object per `Node` per minute and cut down on the amount of querying to the database for optimisation. 
 
 **Missing data**
 
-The database would record the node_id, value, and all statistics as `nil` if these fields empty, but it will contain a `timestamp`. If these fields are empty, it will likely create duplicates.
+The database would record the node_id, value, and all statistics as `nil` if these fields empty, but it will contain a `timestamp`. If the `node_id` field is empty, it will log the statistics with the time but create `Node` duplicates because the `node_id` will not be read.
 
 **Data format**
 
-One assumption is that the data received is either a JSON object or a Hash. It must contain the keys `node_id`, `value`, `timestamp`, an assumption that is specified in the user requirements. The service does not account for data that are in XML format, for example, but this could definitely be added with more time.
+Some assumptions are that the data received is either a JSON object or a Hash, and that it contains the keys `node_id`, `value`, `timestamp`.

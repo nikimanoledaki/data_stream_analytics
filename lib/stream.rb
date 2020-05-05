@@ -22,7 +22,7 @@ class Stream
   end
 
   def new_minute
-    @current_batch.update_statistics
+    @current_batch.update_statistic
     new_batch
   end
 
