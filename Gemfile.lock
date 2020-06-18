@@ -108,7 +108,7 @@ GEM
       ast (~> 2.4.0)
     pg (1.2.3)
     public_suffix (4.0.4)
-    puma (3.12.4)
+    puma (3.12.6)
     racecar (1.0.1)
       king_konf (~> 0.3.7)
       ruby-kafka (~> 0.7.8)
@@ -242,7 +242,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
-  puma (~> 3.11)
+  puma (~> 3.12)
   racecar
   rails (~> 5.2.4, >= 5.2.4.2)
   rspec-rails (~> 4.0.0)
